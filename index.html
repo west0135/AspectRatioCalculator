@@ -28,7 +28,30 @@
         <title>Hello World</title>
     </head>
     <body>
-        <div id="home" class="show"></div>
+        <div class="wrapper">
+            <div id="header">
+                <p id="headerP">HEADER TEXT</p>
+            </div>
+            <div id="navTabs">
+                <div id="tabAdd" class="tabDiv">ADD</div>
+                <div id="tabHome" class="tabDiv">HOME</div>
+                <div id="tabSettings" class="tabDiv">SETTINGS</div>
+            </div>
+            
+            
+            <div id="add" class="hide">
+                <p>Add Page</p>
+            </div>
+            <div id="home" class="show">
+                <p>Home Page</p>
+            </div>
+            <div id="settings" class="hide">
+                <p>Settings Page</p>
+            </div>
+            
+        </div>
+        
+        
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>

@@ -16,6 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+
+//Global Variables
+var currentPage;
+
+
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -37,8 +44,70 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        //Here
+        initApp();
     }
 };
 
 app.initialize();
+
+function initApp(){
+    currentPage = "home";
+    //Add Click Listeners for tabs
+    document.querySelector("#tabAdd").addEventListener('click',addClick);
+    document.querySelector("#tabHome").addEventListener('click',homeClick);
+    document.querySelector("#tabSettings").addEventListener('click',settingsClick);
+    
+}
+
+function addClick(){
+    
+    if(currentPage!="add"){
+        document.querySelector("#home").className = "hide";
+        document.querySelector("#settings").className = "hide";
+        document.querySelector("#add").className = "show";
+        currentPage = "add";
+    }
+}
+
+function homeClick(){
+    
+    if(currentPage!="home"){
+        document.querySelector("#add").className = "hide";
+        document.querySelector("#settings").className = "hide";
+        document.querySelector("#home").className = "show";
+        currentPage = "home";
+    }
+}
+
+function settingsClick(){
+    
+    if(currentPage!="settings"){
+        document.querySelector("#home").className = "hide";
+        document.querySelector("#add").className = "hide";
+        document.querySelector("#settings").className = "show";
+        currentPage = "settings";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
