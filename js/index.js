@@ -202,12 +202,27 @@ function finalAdd(width,height,ratio,exact){
     
     confirmButton.addEventListener("click", function(){
         alert("SAVING DATA");
+        
+        //Bug here, done coding for the night
+        var dataToSave = JSON.stringify({"width:"+width+",height:"+height+",ratio:"+ratio+",exact:"+exact});
+        saveData(dataToSave);
     });
-    
-    
-    
 }
 
+function saveData(data){   
+    
+    if(localStorage.getItem("displays")){
+        var currentData = JSON.parse(localStorage.getItem("displays"));
+        currentData.push(data);
+        localStorage.setItem("displays", JSON.stringify(currentData));
+    }
+    
+    else{
+        var newArray = [];
+        newArray.push(data);
+        localStorage.setItem("displays", JSON.stringify(newArray));
+    }
+}
 
 function homeClick(){
     
