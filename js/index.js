@@ -107,6 +107,8 @@ function addClick(){
             
             //If this is the second step, grab the values and run the calculation
             else{
+                //This line fixes a really frustrating bug. Event listener gets added repeatedly causing the code to loop more and more each time
+                //This line allows me to remove the event listener that called this function
                 this.removeEventListener('hidekeyboard', arguments.callee);
                 secondStep = false;
                 secondDimension = parseInt(inputTag.value);
@@ -133,6 +135,7 @@ function runCalculation(firstDimension, secondDimension){
         height = firstDimension;
     }
     
+    //Case for square, unsure if necessary but code was giving me grief
     else{
         width = firstDimension;
         height = secondDimension;
@@ -145,6 +148,12 @@ function runCalculation(firstDimension, secondDimension){
         if(resolutionsData[i].Width == width){
             if(resolutionsData[i].Height == height){
                 ratio = resolutionsData[i].Ratio;
+                
+                //This needs to be hard coded because 16:10 is not the smallest ratio.
+                //It is used though to make it easily comparable to 16:9
+                if(ratio == "8:5"){
+                    ratio = "16:10"
+                }
                 finalAdd(width,height,ratio,true);
                 resFound = true;
             }
@@ -158,6 +167,9 @@ function runCalculation(firstDimension, secondDimension){
             
             var gcdValue = gcd(width, height);
             var ratio = (width/gcdValue)+":"+(height/gcdValue);
+            if(ratio == "8:5"){
+                ratio = "16:10"
+            }
             finalAdd(width,height,ratio,false);
         }
         else{
