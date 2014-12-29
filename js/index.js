@@ -62,6 +62,7 @@ function initApp(){
 
 //'ADD' PAGE FUNCTIONS
 function addClick(){
+
     var secondStep = false;         //This guy gets flagged the first time the hidekeyboard event gets fired
     var firstDimension = "";
     var secondDimension = "";
@@ -97,15 +98,16 @@ function addClick(){
                 secondStep = true;
                 document.getElementById("instruct").innerHTML = "Now input the second value";
                 firstDimension = parseInt(inputTag.value);
-                inputTag.value = "";
                 var pTag2 = document.createElement("p");
                 pTag2.setAttribute("id","firstDimension");
                 pTag2.innerHTML = firstDimension;
                 container.insertBefore(pTag2,inputTag);
+                inputTag.value = "";
             }
             
             //If this is the second step, grab the values and run the calculation
             else{
+                this.removeEventListener('hidekeyboard', arguments.callee);
                 secondStep = false;
                 secondDimension = parseInt(inputTag.value);
                 runCalculation(firstDimension,secondDimension);
@@ -116,8 +118,8 @@ function addClick(){
 }
 
 function runCalculation(firstDimension, secondDimension){
-    var height;
-    var width;
+    var height = 1;
+    var width = 1;
     var ratio;
     var resFound = false;
     
@@ -126,9 +128,14 @@ function runCalculation(firstDimension, secondDimension){
         height = secondDimension;
     }
     
-    else{
+    else if (firstDimension < secondDimension){
         width = secondDimension;
         height = firstDimension;
+    }
+    
+    else{
+        width = firstDimension;
+        height = secondDimension;
     }
     
     //alert("Height: "+height+", Width: "+width+", Ratio: "+ resolutionsData[0].Ratio);
@@ -138,8 +145,8 @@ function runCalculation(firstDimension, secondDimension){
         if(resolutionsData[i].Width == width){
             if(resolutionsData[i].Height == height){
                 ratio = resolutionsData[i].Ratio;
-                //finalAdd(width,height,ratio,true);
-                //resFound = true;
+                finalAdd(width,height,ratio,true);
+                resFound = true;
             }
         
         }
