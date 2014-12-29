@@ -63,9 +63,20 @@ body {
     width:32.5%;
     float:left;
     text-align: center;
+    height:3rem;
 }
 
 p{
     text-align: center;
 }
 
+#addConfirmBtn{
+    width:20%;
+    margin:auto;
+}
+
+#firstInput{
+    width: 10rem;
+    margin-left: 6rem;
+    height:2rem;
+}

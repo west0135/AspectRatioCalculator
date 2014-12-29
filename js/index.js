@@ -106,6 +106,7 @@ function addClick(){
             
             //If this is the second step, grab the values and run the calculation
             else{
+                secondStep = false;
                 secondDimension = parseInt(inputTag.value);
                 runCalculation(firstDimension,secondDimension);
             }
@@ -118,6 +119,7 @@ function runCalculation(firstDimension, secondDimension){
     var height;
     var width;
     var ratio;
+    var resFound = false;
     
     if (firstDimension > secondDimension){
         width = firstDimension;
@@ -135,17 +137,56 @@ function runCalculation(firstDimension, secondDimension){
         console.log(resolutionsData[i].Width);
         if(resolutionsData[i].Width == width){
             if(resolutionsData[i].Height == height){
-                alert("Your aspect ratio is "+resolutionsData[i].Ratio);
-                emptyDiv("add");
-                homeClick();
+                ratio = resolutionsData[i].Ratio;
+                //finalAdd(width,height,ratio,true);
+                //resFound = true;
             }
         
         }
     }
     
-    emptyDiv("add");
-    //alert(firstDimension+" x "+ secondDimension);
+    if (!resFound){
+        alert("Your resolution is not on my list, I'll attempt to calculate for you.");
+        if (height>0 && width>0){
+            
+            var gcdValue = gcd(width, height);
+            var ratio = (width/gcdValue)+":"+(height/gcdValue);
+            finalAdd(width,height,ratio,false);
+        }
+        else{
+            alert("Cannot input 0 for either value");
+        }
+    }
+}
 
+//Recursive function I found online. Basically it feeds back into itself 
+//attempting to divide height by width until there is no remainder.
+function gcd(a,b){
+    return (b == 0) ? a : gcd (b, a%b);
+}
+
+
+function finalAdd(width,height,ratio,exact){
+    emptyDiv("add");
+    var container = document.getElementById("add");
+    var pTag = document.createElement("p");
+    pTag.innerHTML = "Please confirm adding the following display information";
+    var pTag2 = document.createElement("p");
+    pTag2.innerHTML = width + " X " + height + ", "+ratio;
+    var confirmButton = document.createElement("div");
+    confirmButton.setAttribute("id", "addConfirmBtn");
+    confirmButton.innerHTML = ("<p>Confirm</p>");
+    
+    container.appendChild(pTag);
+    container.appendChild(pTag2);
+    container.appendChild(confirmButton);
+    
+    confirmButton.addEventListener("click", function(){
+        alert("SAVING DATA");
+    });
+    
+    
+    
 }
 
 
